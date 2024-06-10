@@ -1,49 +1,76 @@
 @model IEnumerable<RezervariBilete.Models.RezervationDto.RezervationRowDto>
 @{
     ViewBag.Title = "Rezervari";
-    Layout = "_Layout";
+    if (!User.Identity.IsAuthenticated)
+    {
+        Layout = "_Layout";
+
+    }
+    else
+    {
+        Layout = "CustomLayout";
+    }
 }
 @if (User.Identity == null || User.Identity.IsAuthenticated == false)
 
 {
-    <h3>Nu sunteti autentificat</h3>
+    <div class="row min-vh-100">
+        <div class="col-sm-12 d-flex col-md-6" align="center">
+            <div class="d-flex  my-auto flex-column align-content-center" style="vertical-align: center;">
+                <h2>Rezervarea biletelor</h2>
+                <h5>Autentificare:</h5>
+                <div class="d-flex justify-content-center">
+                    <a class="btn btn-primary" asp-area="Identity" asp-page="/Account/Login">
+                        <span style="font-size: 18px;">Autentificare</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6">
+            <lottie-player src="https://lottie.host/bbcdf9f4-2fd9-4969-813c-385052be4f88/ePVCHsIr7G.json" background="transparent" speed="1" loop autoplay></lottie-player>
+        </div>
+    </div>
 }
 else
 {
-    <div class="d-flex justify-content-end">
-        <a class="btn btn-primary" href="@Url.Action("Edit", null)">ADAUGA REZERVARE</a>
-    </div>
+    <div >
 
-    <h2>Lista Rezervarilor</h2>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary" href="@Url.Action("Edit", null)">ADAUGA REZERVARE</a>
+        </div>
 
-    <table class="table">
-        <thead>
-        <tr>
-            <th>Numele</th>
-            <th>Prenumele</th>
-            <th>Denumirea eveniment</th>
-            <th>Numarul de bilete</th>
-            <th>Data evenimentului</th>
-            <th>Tipul biletului</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var item in Model)
-        {
+        <h2>Lista Rezervarilor</h2>
+
+        <table class="table">
+            <thead>
             <tr>
-                <td>@item.Name</td>
-                <td>@item.UserName</td>
-                <td>@item.EventName</td>
-                <td>@item.NrBilete</td>
-                <td>@item.ReservationTime.ToString("dd-MM-yyyy")</td>
-                <td>@item.Type</td>
-                <td>
-                    <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.Id })">Edit</a>
-                    <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.Id })">Delete</a>
-                </td>
+                <th>Numele</th>
+                <th>Prenumele</th>
+                <th>Denumirea eveniment</th>
+                <th>Numarul de bilete</th>
+                <th>Data evenimentului</th>
+                <th>Tipul biletului</th>
+                <th>Actions</th>
             </tr>
-        }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.UserName</td>
+                    <td>@item.EventName</td>
+                    <td>@item.NrBilete</td>
+                    <td>@item.ReservationTime.ToString("dd-MM-yyyy")</td>
+                    <td>@item.Type</td>
+                    <td>
+                        <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.Id })">Edit</a>
+                        <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.Id })">Delete</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
 }

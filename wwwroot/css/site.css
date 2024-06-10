@@ -15,8 +15,31 @@ html {
 html {
   position: relative;
   min-height: 100%;
+  z-index: 1;
 }
 
 body {
   margin-bottom: 60px;
+}
+
+.image-background{
+  background: url('./images/reservation-background.jpeg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  position: relative;
+  
+}
+.image-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('../images/clock_and_calendar.jpeg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.05;
+  z-index: -1;
+  min-height: 100vh;
 }
