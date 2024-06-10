@@ -2,7 +2,7 @@ namespace RezervariBilete.Models.Enum;
 
 public enum BiletType
 {
-    Normal,
+    Standard,
     Premium,
     Vip
 }
