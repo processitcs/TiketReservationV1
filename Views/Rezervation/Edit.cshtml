@@ -1,0 +1,111 @@
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model RezervariBilete.Models.RezervationDto.AddEditRezervationDto
+@{
+ViewBag.Title = "EditRezervation";
+Layout = "_Layout";
+}
+
+<form asp-action="Edit" method="post" id="editRezervationForm">
+    <input type="hidden" asp-for="Id">
+    <div class="row">
+        <div class="col-md-12">
+            <label for="validationCustom01" class="form-label">Numele</label>
+            <input type="text" asp-for="FirstName" class="form-control" id="validationCustom01" name="firstName" required>
+            <div class="invalid-feedback" id="firstNameError">Vă rugăm să introduceți numele.</div>
+        </div>
+        <div class="col-md-12 my-2">
+            <label for="validationCustom02" class="form-label">Prenumele</label>
+            <input type="text" asp-for="LastName" class="form-control" id="validationCustom02" name="lastName" required>
+            <div class="invalid-feedback" id="lastNameError">Vă rugăm să introduceți prenumele.</div>
+        </div>
+        <div class="col-md-12 my-2">
+            <label for="validationCustom06" class="form-label">Denumirea evenimentului</label>
+            <input type="text" asp-for="EventName" class="form-control" id="validationCustom06" name="EventName" required>
+            <div class="invalid-feedback" id="lastNameError">Vă rugăm să introduceți numele evenimentului.</div>
+        </div>
+        <div class="col-md-12 my-2">
+            <label for="validationCustom03" class="form-label">Numarul de bilete</label>
+            <input type="number" asp-for="TiketNumber" class="form-control" id="validationCustom03" name="tiketNumber" required>
+            <div class="invalid-feedback" id="tiketNumberError">Vă rugăm să introduceți numărul de bilete.</div>
+        </div>
+        <div class="col-md-12 my-2">
+            <label for="validationCustom04" class="form-label">Data evenimentului</label>
+            <input type="date" asp-for="EventDate" dataformatas="dd-MM-yyyy" class="form-control" id="validationCustom04" name="EventDate" required>
+            <div class="invalid-feedback" id="eventDateError">Vă rugăm să introduceți data evenimentului.</div>
+        </div>
+        <div class="col-md-12 my-2">
+            <label>Selectati tipul biletului</label>
+            <select class="form-select w-100" type="int" asp-for="TiketType" id="ticketType"  aria-label="Default select example" name="TiketType">
+                <option value="" selected>Selectati tipul biletului</option>
+                <option value="0">Standard</option>
+                <option value="1">Vip</option>
+                <option value="2">Premium</option>
+            </select>
+            <div class="invalid-feedback" id="ticketTypeError">Vă rugăm să selectați tipul biletului.</div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center my-3">
+        <button class="btn btn-primary" id="submitButton" type="submit">Salveaza!</button>
+    </div>
+    <div id="loading" style="display:none;">
+        <p>Loading...</p>
+    </div>
+</form>
+
+@section Scripts {
+<script>
+    document.getElementById("editRezervationForm").addEventListener("submit", function(event) {// Previne submit-ul standard
+
+        // Resetare mesaje de eroare
+        var errorMessages = document.querySelectorAll('.invalid-feedback');
+        errorMessages.forEach(function(error) {
+            error.style.display = 'none';
+        });
+
+        var isValid = true;
+
+        // Validare Nume
+        var firstName = document.getElementById("validationCustom01");
+        if (!firstName.value.trim()) {
+            isValid = false;
+            document.getElementById("firstNameError").style.display = 'block';
+        }
+
+        // Validare Prenume
+        var lastName = document.getElementById("validationCustom02");
+        if (!lastName.value.trim()) {
+            isValid = false;
+            document.getElementById("lastNameError").style.display = 'block';
+        }
+
+        // Validare Numar de bilete
+        var tiketNumber = document.getElementById("validationCustom03");
+        if (!tiketNumber.value.trim() || tiketNumber.value <= 0) {
+            isValid = false;
+            document.getElementById("tiketNumberError").style.display = 'block';
+        }
+
+        // Validare Data evenimentului
+        var eventDate = document.getElementById("validationCustom04");
+        if (!eventDate.value.trim()) {
+            isValid = false;
+            document.getElementById("eventDateError").style.display = 'block';
+        }
+
+        // Validare Tip bilet
+        var ticketType = document.getElementById("ticketType");
+        if (!ticketType.value.trim()) {
+            isValid = false;
+            document.getElementById("ticketTypeError").style.display = 'block';
+        }
+
+        if (isValid) {
+            // Afișează indicatorul de încărcare
+            document.getElementById("loading").style.display = "block";
+
+            // Dezactivează butonul de submit
+            document.getElementById("submitButton").disabled = true;
+        }
+    });
+</script>
+}

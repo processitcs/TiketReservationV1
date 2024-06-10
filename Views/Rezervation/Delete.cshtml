@@ -1,0 +1,64 @@
+@model  RezervariBilete.Models.RezervationDto.AddEditRezervationDto
+
+@{
+ViewBag.Title = "Delete Rezervation";
+}
+
+<h2>Sterge Rezervarea</h2>
+
+<h3>Sigur doriti sa stergeti rezervarea?</h3>
+
+<div>
+    <h4>Rezervarea : </h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TiketNumber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TiketNumber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.TiketType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TiketType)
+        </dd>
+    </dl>
+
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index">Inapoi la lista</a>
+    </form>
+</div>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+

@@ -1,0 +1,49 @@
+@model IEnumerable<RezervariBilete.Models.RezervationDto.RezervationRowDto>
+@{
+    ViewBag.Title = "Rezervari";
+    Layout = "_Layout";
+}
+@if (User.Identity == null || User.Identity.IsAuthenticated == false)
+
+{
+    <h3>Nu sunteti autentificat</h3>
+}
+else
+{
+    <div class="d-flex justify-content-end">
+        <a class="btn btn-primary" href="@Url.Action("Edit", null)">ADAUGA REZERVARE</a>
+    </div>
+
+    <h2>Lista Rezervarilor</h2>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Numele</th>
+            <th>Prenumele</th>
+            <th>Denumirea eveniment</th>
+            <th>Numarul de bilete</th>
+            <th>Data evenimentului</th>
+            <th>Tipul biletului</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.UserName</td>
+                <td>@item.EventName</td>
+                <td>@item.NrBilete</td>
+                <td>@item.ReservationTime.ToString("dd-MM-yyyy")</td>
+                <td>@item.Type</td>
+                <td>
+                    <a class="btn btn-primary" href="@Url.Action("Edit", new { id = item.Id })">Edit</a>
+                    <a class="btn btn-danger" href="@Url.Action("Delete", new { id = item.Id })">Delete</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}
